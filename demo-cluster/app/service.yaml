@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp
+  namespace: apps
+  labels:
+    app.kubernetes.io/name: myapp
+    app.kubernetes.io/service_stage: "default"
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app.kubernetes.io/name: myapp
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "myapp-canary"
+  namespace: apps
+  labels:
+    app.kubernetes.io/name: myapp
+    app.kubernetes.io/service_stage: "canary"
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app.kubernetes.io/name: myapp
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "myapp-stable"
+  namespace: apps
+  labels:
+    app.kubernetes.io/name: myapp
+    app.kubernetes.io/service_stage: "stable"
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app.kubernetes.io/name: myapp

@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: success-rate-analysis
+  namespace: apps
+spec:
+  args:
+  - name: from
+  - name: service-name
+  metrics:
+  - name: success-rate
+    interval: 15s
+    successCondition: len(result) == 0 || result[0] == 0
+    # In this example anything between [0.9, 0.95) is considered unconclusive
+    failureCondition: len(result) > 0 && result[0] > 0
+    failureLimit: 0
+    provider:
+      prometheus:
+        address: http://prometheus-server.monitoring.svc.cluster.local:80
+        timeout: 20
+        # curl --location --globoff 'http://prometheus-server.monitoring.svc.cluster.local:80/api/v1/query?query=sum%20by(service)%20(increase(response_total{deployment%3D%22slow-cooker%22%2C%20dst_service%3D%22myapp-stable%22%2C%20direction%3D%22outbound%22%2C%20classification%3D%22failure%22%2C%20status_code%3D%22500%22}[30s]))'
+        query: sum by(service) (increase(response_total{deployment="{{args.from}}", dst_service="{{args.service-name}}", direction="outbound", classification="failure", status_code="500"}[30s]))

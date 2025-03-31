@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: slow-cooker
+  namespace: apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: slow-cooker
+  template:
+    metadata:
+      labels:
+        app: slow-cooker
+    spec:
+      containers:
+      - name: slow-cooker
+        image: buoyantio/slow_cooker:1.3.0
+        command:
+        - "/bin/sh"
+        args:
+        - "-c"
+        - |
+          /slow_cooker/slow_cooker http://myapp:8080/status/500
+        ports:
+        - containerPort: 9999
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 100m
+            memory: 128Mi

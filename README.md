@@ -1,6 +1,6 @@
 # Progressive Canary Releases with Argo Rollouts Analysis and Linkerd Metrics
 
-Link to the related article on my website: [https://mirrajabi.nl/posts/13-argo-rollout-analysis-with-linkerd-and-prometheus](https://mirrajabi.nl/posts/13-argo-rollout-analysis-with-linkerd-and-prometheus)
+Please have a look at the related article on my website: [https://mirrajabi.nl/posts/13-argo-rollout-analysis-with-linkerd-and-prometheus](https://mirrajabi.nl/posts/13-argo-rollout-analysis-with-linkerd-and-prometheus)
 
 [![asciicast](https://asciinema.org/a/oS5s9XXIIZ7QR7t63EV5nRLdx.svg)](https://asciinema.org/a/oS5s9XXIIZ7QR7t63EV5nRLdx)
 
